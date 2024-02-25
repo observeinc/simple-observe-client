@@ -1,0 +1,66 @@
+.hbox {
+    display: flex !important;
+    flex-direction: row;
+}
+
+.hbox>div {
+    display: inline-block;
+}
+
+.vbox {
+    display: flex !important;
+    flex-direction: column;
+}
+
+.vbox>div {
+    display: inline-block;
+}
+
+.filter {
+    margin-bottom: 0.3rem;
+}
+
+.selected {
+    background-color: #eeeeee;
+}
+
+.datasetitem.selected:hover {
+    background-color: #eeeeee;
+}
+
+.datasetbrowser {
+    max-width: 20vw;
+    padding-right: 0.3rem;
+    border-right: dotted 1px #606060;
+    margin-right: 0.3rem;
+}
+
+.datasetbrowser input {
+    width: calc(100% - 1rem);
+}
+
+.datasetbrowser label {
+    display: none !important;
+}
+
+.datasetlist {
+    overflow: scroll;
+}
+
+.datasetitem {
+    padding: 0.2rem 1rem;
+    font-family: "Courier New", monospace;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.datasetitem:hover {
+    background-color: #504050;
+}
+
+.datasetitem:active {
+    background-color: #eeeeee;
+}

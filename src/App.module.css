@@ -1,0 +1,77 @@
+body {
+  background: #181018;
+  cursor: pointer;
+}
+
+input {
+  cursor: select;
+}
+
+.App {
+  color: #20a030;
+}
+
+.Loading {
+  animation: pulsing-color 2s infinite;
+}
+
+.LoggedIn {
+  color: #d0d0d0;
+}
+
+.Error {
+  padding: 1rem 1rem;
+  color: #e0e0e0;
+  background: #a02020;
+}
+
+@keyframes pulsing-color {
+  0% {
+    color: #000000;
+  }
+
+  50% {
+    color: #20e030;
+  }
+
+  100% {
+    color: #000000;
+  }
+}
+
+a {
+  color: #b318f0;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #20e030;
+}
+
+a:visited {
+  color: #b318f0;
+}
+
+.databrowser {
+  height: 100vh;
+  overflow: scroll;
+}
+
+.hbox {
+  display: flex !important;
+  flex-direction: row;
+}
+
+.hbox>div {
+  display: inline-block;
+}
+
+.vbox {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.vbox>div {
+  display: inline-block;
+}

@@ -1,0 +1,12 @@
+.filterinput {
+    margin-bottom: 0.3rem;
+}
+
+.textfield input {
+    width: 70vw;
+    font-family: 'Courier New', monospace;
+}
+
+.filterinput label {
+    width: auto;
+}

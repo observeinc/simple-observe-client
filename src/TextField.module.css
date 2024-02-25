@@ -1,0 +1,33 @@
+.textfield {
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.textinput {
+    padding: 0.25rem;
+    border: solid 1px #606060;
+    border-radius: 0.25rem;
+    color: #e0e0e0;
+    background: #504050;
+    width: 12rem;
+}
+
+.textlabel {
+    width: 10rem;
+    color: #c0c0c0;
+    display: inline-block;
+}
+
+button {
+    background: #504050;
+    color: #e0e0e0;
+    border: solid 1px #c0c0c0;
+    border-radius: 0.25rem;
+    padding: 0.25rem 1rem;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+button:hover {
+    background: #20e030;
+}

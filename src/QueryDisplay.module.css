@@ -1,0 +1,47 @@
+.running {
+    color: #c020a0;
+}
+
+.querycontainer {
+    overflow: scroll;
+}
+
+.querytable {
+    border-collapse: collapse;
+    border: 1px dotted #606060;
+    width: auto;
+    height: auto;
+}
+
+.queryheader {
+    font-weight: bold;
+    padding: 0.1rem 0.4rem;
+}
+
+.querybody {
+    font-family: "Courier New", monospace;
+    border: dotted 1px #606060;
+}
+
+.queryerror {
+    padding: 1rem 1rem;
+    color: #e0e0e0;
+    background: #a02020;
+}
+
+.queryrow {
+    width: auto;
+    border: dotted 1px #606060;
+    max-height: 5rem;
+}
+
+.querycell {
+    width: auto;
+    padding: 0.1rem 0.1rem;
+    border: dotted 1px #606060;
+    color: #c0c0c0;
+    max-width: 30rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+}
