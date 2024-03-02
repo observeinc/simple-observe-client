@@ -40,6 +40,12 @@ export class LoginState {
         return this.state[0]();
     }
 
+    public logout() {
+        this.setInfo({ token: '', email: '' });
+        this.setState('unconfigured', 'Logged Out');
+        localStorage.setItem('loginInfo', JSON.stringify(this.getInfo()));
+    }
+
     public async bootstrap() {
         try {
             const info = this.getInfo();
@@ -88,7 +94,9 @@ export class LoginState {
                 /* Todo: stolen from the CLI tool -- allocate own integration for this example.
                  */
                 integration: "observe-tool-abdaf0"
-            })
+            }),
+            credentials: 'include',
+            referrerPolicy: 'origin'
         });
         const j = await rslt.json();
         console.log('startDelegatedLogin', j);
@@ -115,7 +123,10 @@ export class LoginState {
             /* TODO: document the poll endpoint for delegated login.
              */
             const u = info.getUrl(`/v1/login/delegated/${this.delegatedToken}`);
-            const rslt = await fetch(u);
+            const rslt = await fetch(u, {
+                credentials: 'include',
+                referrerPolicy: 'origin'
+            });
             const j = await rslt.json();
             console.log(u, j);
             if (!j.settled) {

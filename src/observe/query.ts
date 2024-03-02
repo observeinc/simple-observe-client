@@ -35,7 +35,9 @@ function makeQuery(l: LoginInfo, params: IQueryParameters): any {
                 linkify: true
             }
         }),
-        signal: params.signal
+        signal: params.signal,
+        credentials: 'include',
+        referrerPolicy: 'origin'
     };
 }
 

@@ -86,7 +86,7 @@ const App: Component = () => {
           <div class={styles.hbox + " " + styles.databrowser}>
             <DatasetBrowser datasetList={datasetList[0]} selectedDataset={selectedDataset} />
             <div class={styles.vbox}>
-              <FilterInput selectedDataset={selectedDataset[0]} datasetFilter={datasetFilter} />
+              <FilterInput loginState={loginState} selectedDataset={selectedDataset[0]} datasetFilter={datasetFilter} />
               <QueryDisplay dataTable={queryResult} />
             </div>
           </div>

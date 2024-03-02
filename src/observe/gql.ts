@@ -13,7 +13,9 @@ export async function query(l: LoginInfo, q: string, v?: any): Promise<any> {
         body: JSON.stringify({
             query: q,
             variables: v
-        })
+        }),
+        credentials: 'include',
+        referrerPolicy: 'origin'
     });
     return await rslt.json();
 };

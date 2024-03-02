@@ -9,7 +9,9 @@ export async function listDatasets(l: LoginInfo): Promise<DatasetInfo[]> {
         headers: {
             'Accept': 'application/json',
             'Authorization': `Bearer ${l.customer} ${l.token}`
-        }
+        },
+        credentials: 'include',
+        referrerPolicy: 'origin'
     });
     const j = await rslt.json();
     console.log('got dataset list', j);
