@@ -18,6 +18,10 @@ You will need your customer ID, your site name, and your user email address. If 
 
 If you normally access Observe using a URL such as https://1234567890.observeinc.com/ then your customer ID is `1234567890` and your site name is `observeinc.com`.
 
+The UI components all live in src/*.tsx.
+
+The code that talks to Observe lives in observe/*.ts.
+
 ## References
 
   * [Observe API](https://developer.observeinc.com/)

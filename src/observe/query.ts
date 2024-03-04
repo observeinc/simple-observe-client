@@ -2,11 +2,18 @@ import { DatasetInfo } from "./DatasetInfo";
 import { DatasetTable } from "./DatasetTable";
 import LoginInfo from "./LoginInfo";
 
+// There are more available documented parameters on a query stage,
+// such as parameter bindings and multiple inputs, but we're keeping
+// the API to a minimum here.
 export interface IOpalStage {
     id: string;
     pipeline: string;
 };
 
+// The parameters needed to run an OPAL query. Note that this includes
+// the actual query ("stages," and their input "datasets") as well as
+// necessary metadata (time window) and some control data ("signal")
+// for aborting the query.
 export interface IQueryParameters {
     signal: AbortSignal;
     datasets: { [key: string]: DatasetInfo };
@@ -41,10 +48,17 @@ function makeQuery(l: LoginInfo, params: IQueryParameters): any {
     };
 }
 
+// Sniffing whether a returned value might be a timestamp for presentation.
+// Observe stores and returns payload timestamps as nanoseconds in the UNIX
+// epoch, encoded as strings (to avoid floating point quantization.)
 function isTimestampString(v: string): boolean {
     return !Number.isNaN(parseInt(v)) && v >= '1600000000000000000' && v <= '1900000000000000000';
 }
 
+// Observe returns numbers a string type in JSON, because of floating point
+// quantization problems. When making up our minds for how to treat it,
+// inspect the actual value to see whether it requires float (is a decimal)
+// or is "safe" (magnitude less than 12 digits.)
 function opalNumberType(v: number): string {
     const s: string = v.toString();
     if (s.length < 12) {
@@ -56,6 +70,9 @@ function opalNumberType(v: number): string {
     return 'int64';
 }
 
+// Given a string, that's already not a number, what do we // think it should
+// be? This is for cases where arrays or objects are returned as JSON encoded
+// strings.
 function opalStringType(v: string): string {
     if (v.startsWith('[')) {
         return 'array';
@@ -69,6 +86,7 @@ function opalStringType(v: string): string {
     return 'string';
 }
 
+// Given an object returned in JSON, is it an "object" or an "array"?
 function opalObjectType(v: object): string {
     if (Array.isArray(v)) {
         return 'array';
@@ -76,6 +94,7 @@ function opalObjectType(v: object): string {
     return 'object';
 }
 
+// Build the payload needed to run an OPAL query for the export endpoint.
 function buildStages(params: IQueryParameters): any[] {
     const dsInputs = Object.entries(params.datasets).map((kv: [string, DatasetInfo]) => {
         const [id, ds] = kv;
@@ -99,6 +118,10 @@ function buildStages(params: IQueryParameters): any[] {
     })
 }
 
+// Given a result in nd-json format, slice it up and convert each column
+// to an appropriate datatype, by sniffing the data in the first row.
+// The dataset list returns exact schema information, but we may add
+// additional OPAL, and the "export" endpoint does not return schema.
 function makeResult(rslt: Response, txt: string): DatasetTable {
     // trim final newline to not get a blank row at the end
     if (txt.length > 0 && txt.charAt(txt.length - 1) == '\n') {
@@ -128,7 +151,7 @@ function makeResult(rslt: Response, txt: string): DatasetTable {
     return new DatasetTable(false, undefined, { columns: schema }, rows);
 }
 
-// Type sniffing. Gross!
+// Type sniffing. https://www.youtube.com/watch?v=mwpwPwWIueM
 export function opalType(v: any): string {
     switch (typeof v) {
         case 'number':
@@ -144,6 +167,8 @@ export function opalType(v: any): string {
     }
 }
 
+// Given login credentials, and an expressed OPAL query, run the export
+// endpoint and decode the resulting data into a dataset table you can present.
 export async function opalQuery(l: LoginInfo, params: IQueryParameters): Promise<DatasetTable> {
     console.log('opalQuery', params);
     const rslt = await fetch(l.getUrl('/v1/meta/export/query'), makeQuery(l, params));

@@ -5,6 +5,8 @@ export interface IDatasetSchema {
     }>;
 };
 
+// DatasetTable is returned by the opalQuery() function in query.ts.
+// It represents the actual data gotten from the export endpoint.
 export class DatasetTable {
     public running: boolean;
     public error?: string;
